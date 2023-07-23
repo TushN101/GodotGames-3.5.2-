@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Player.tscn" type="PackedScene" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 502.5, 70 )
+
+[node name="Main" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 510, 424 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 2.5, 60 )
+shape = SubResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+margin_left = 13.0
+margin_top = 412.0
+margin_right = 1015.0
+margin_bottom = 555.0
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 304, 362 )
+
+[node name="Camera2D2" type="Camera2D" parent="Player"]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+smoothing_enabled = true
+
+[node name="instruction" type="Label" parent="."]
+margin_left = 60.0
+margin_top = 248.0
+margin_right = 379.0
+margin_bottom = 330.0
+text = "A and D for 2d Movement
+Shift for quick movement
+Right Click to Pull Sword
+Left Click to Attack(HOLD)
+To attack both mouse button needs to be pressed
+Sword action  not possible in walk"
