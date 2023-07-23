@@ -1,0 +1,107 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Ladder/ladder_mid.png" type="Texture" id=2]
+[ext_resource path="res://Ladder/ladder_top.png" type="Texture" id=3]
+[ext_resource path="res://src/Ladder.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Controls.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 378.867, 41.6051 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2, 86.5 )
+
+[sub_resource type="TileSet" id=3]
+0/name = "ladder_mid.png 0"
+0/texture = ExtResource( 2 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "ladder_top.png 1"
+1/texture = ExtResource( 3 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 64, 64 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+
+[node name="Main" type="Node2D"]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2( 492, 432 )
+collision_layer = 4
+
+[node name="FloorCollision" type="CollisionShape2D" parent="Floor"]
+position = Vector2( 23, 57 )
+shape = SubResource( 1 )
+
+[node name="FloorColour" type="Panel" parent="Floor"]
+margin_left = -476.0
+margin_top = 14.0
+margin_right = 525.0
+margin_bottom = 101.0
+
+[node name="Floor2" type="StaticBody2D" parent="."]
+position = Vector2( 592, 178 )
+scale = Vector2( 0.274833, 0.743224 )
+collision_layer = 4
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="FloorCollision" type="CollisionShape2D" parent="Floor2"]
+position = Vector2( -73.2261, 170.772 )
+shape = SubResource( 1 )
+
+[node name="Panel" type="Panel" parent="Floor2"]
+margin_left = -458.0
+margin_top = 126.0
+margin_right = 310.0
+margin_bottom = 213.0
+
+[node name="Ladder" type="Area2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladder"]
+position = Vector2( 685, 359.5 )
+shape = SubResource( 2 )
+
+[node name="TileMap" type="TileMap" parent="Ladder"]
+scale = Vector2( 0.2, 0.2 )
+tile_set = SubResource( 3 )
+format = 1
+tile_data = PoolIntArray( 1376309, 1, 0, 1441845, 0, 0, 1507381, 0, 0, 1572917, 0, 0, 1638453, 0, 0, 1703989, 0, 0, 1769525, 0, 0, 1835061, 0, 0, 1900597, 0, 0, 1966133, 0, 0, 2031669, 0, 0, 2097205, 0, 0, 2162741, 0, 0, 2228277, 0, 0 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 421, 408 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+zoom = Vector2( 0.3, 0.3 )
+smoothing_enabled = true
+smoothing_speed = 2.0
+
+[node name="Output-onlinepngtools" type="Sprite" parent="Player"]
+position = Vector2( -114.25, -72.5 )
+scale = Vector2( 0.481132, 0.358696 )
+texture = ExtResource( 5 )
+
+[connection signal="body_entered" from="Ladder" to="Ladder" method="_on_Ladder_body_entered"]
+[connection signal="body_exited" from="Ladder" to="Ladder" method="_on_Ladder_body_exited"]
